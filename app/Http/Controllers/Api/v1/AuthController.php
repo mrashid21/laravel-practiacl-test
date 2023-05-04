@@ -6,13 +6,14 @@ use App\Http\Controllers\Api\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 
 class AuthController extends ApiController
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:sanctum', ['except' => ['login','register']]);
     }
 
     public function login(Request $request)
@@ -23,7 +24,12 @@ class AuthController extends ApiController
         ]);
         $credentials = $request->only('email', 'password');
 
-        $token = Auth::attempt($credentials);
+        $login = Auth::attempt($credentials);
+
+        $user = Auth::user();
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         if (!$token) {
             return response()->json([
                 'status' => 'error',
@@ -31,7 +37,7 @@ class AuthController extends ApiController
             ], 401);
         }
 
-        $user = Auth::user();
+        
         return response()->json([
                 'status' => 'success',
                 'user' => $user,

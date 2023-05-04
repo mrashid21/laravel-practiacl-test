@@ -12,7 +12,7 @@ class InputController extends ApiController
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:sanctum');
     }
 
     public function index()

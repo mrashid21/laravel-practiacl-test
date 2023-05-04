@@ -25,7 +25,7 @@ class AttachInputRequest extends FormRequest {
     public function rules() {
         return  [
             'form_id' => 'required|exists:forms,id',
-            'input_id' => 'required|exists:forms,id',
+            'input_id' => 'required|exists:inputs,id',
             'toggle' => 'required|boolean',
         ];
     }

@@ -15,9 +15,9 @@ class FormController extends ApiController
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:sanctum');
     }
-
+    
     public function index()
     {
         $forms = Form::with('inputs')->get();
@@ -80,9 +80,9 @@ class FormController extends ApiController
 
     public function toggleInputFields(AttachInputRequest $request)
     {
-        $form = Form::find($request->form_id);
+        $form = Form::where('id', $request->form_id)->first();
 
-        if ($form->inputs()->exists($request->input_id) && $request->toggle) {
+        if ($form->inputs()->where('input_id', $request->input_id)->exists() && $request->toggle) {
             return response()->json([
                 'status' => 422,
                 'message' => 'Input already attach to form',
@@ -90,7 +90,7 @@ class FormController extends ApiController
             ]);
         }
 
-        if (!$form->inputs()->exists($request->input_id) && !$request->toggle) {
+        if (!$form->inputs()->where('input_id', $request->input_id)->exists() && !$request->toggle) {
             return response()->json([
                 'status' => 422,
                 'message' => 'Input already detach to form',
@@ -98,7 +98,7 @@ class FormController extends ApiController
             ]);
         }
 
-        if (!$form->inputs()->exists($request->input_id) && $request->toggle) {
+        if (!$form->inputs()->where('input_id', $request->input_id)->exists() && $request->toggle) {
             $form->inputs()->attach($request->input_id);
 
             return response()->json([
@@ -108,7 +108,7 @@ class FormController extends ApiController
             ]);
         }
 
-        if ($form->inputs()->exists($request->input_id) && !$request->toggle) {
+        if ($form->inputs()->where('input_id', $request->input_id)->exists() && !$request->toggle) {
             $form->inputs()->detach($request->input_id);
 
             return response()->json([

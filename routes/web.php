@@ -23,15 +23,13 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth:web'])->group(function () {
-    Route::controller(FormController::class)->group(function () {
-        Route::get('forms', 'index')->name('form.index');
-        Route::post('form', 'store');
-        Route::get('form/{id}', 'show');
-        Route::put('form/{id}', 'update');
-        Route::delete('form/{id}', 'destroy');
-        Route::post('attach', 'toggleInputFields');
-        Route::get('survey/{form_id}', 'survey')->name('survey.show');
-        Route::post('survey', 'submitSurvey')->name('survey.submit');
-    });
+Route::controller(FormController::class)->middleware(['auth:web'])->group(function () {
+    Route::get('forms', 'index')->name('form.index');
+    Route::post('form', 'store');
+    Route::get('form/{id}', 'show');
+    Route::put('form/{id}', 'update');
+    Route::delete('form/{id}', 'destroy');
+    Route::post('attach', 'toggleInputFields');
+    Route::get('survey/{form_id}', 'survey')->name('survey.show');
+    Route::post('survey', 'submitSurvey')->name('survey.submit');
 });
