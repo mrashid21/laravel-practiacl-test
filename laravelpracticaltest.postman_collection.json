@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "79d97f40-6365-42b9-a650-723b9ceaf1b5",
+		"name": "laravelpracticaltest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21074593"
+	},
+	"item": [
+		{
+			"name": "Input",
+			"item": [
+				{
+					"name": "store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "name",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "text",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/{{version}}/input",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"input"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/{{version}}/inputs",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"inputs"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Form",
+			"item": [
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/{{version}}/forms",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"forms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Form 1",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "lorem ipsum",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/{{version}}/form",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"form"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/{{version}}/form/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"form",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "toggleInputFields",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "form_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "input_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "toggle",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/{{version}}/attach",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"attach"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", data.authorisation.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "jwt@mrashidstarter.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/{{version}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
